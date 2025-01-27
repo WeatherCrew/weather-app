@@ -1,27 +1,14 @@
-name: Deploy Weather Services
+# version: '3.8'
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+services:
+  weather-api:
+    image: ghcr.io/weathercrew/weather-api:latest
+    container_name: weather-api
+    ports:
+      - "8000:8000"
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Log in to DockerHub
-        uses: docker/login-action@v3
-        with:
-          registry: https://ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.PAT_1 }}
-
-      - name: Pull and start containers
-        run: |
-          docker-compose pull
-          docker-compose up -d
+  weather-ui:
+    image: ghcr.io/weathercrew/weather-ui:latest
+    container_name: weather-ui
+    ports:
+      - "80:80"
