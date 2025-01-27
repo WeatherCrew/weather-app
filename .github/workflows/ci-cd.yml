@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  weather-api:
+    image: ghcr.io/weathercrew/weather-api:latest
+    container_name: weather-api
+    ports:
+      - "8000:8000"
+
+  weather-ui:
+    image: ghcr.io/weathercrew/weather-ui:latest
+    container_name: weather-ui
+    ports:
+      - "80:80"
