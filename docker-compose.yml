@@ -1,4 +1,4 @@
-# version: '3.8'
+version: '3.8'
 
 services:
   weather-api:
@@ -6,9 +6,15 @@ services:
     container_name: weather-api
     ports:
       - "8000:8000"
+    restart: unless-stopped
 
   weather-ui:
     image: ghcr.io/weathercrew/weather-ui:latest
     container_name: weather-ui
     ports:
       - "80:80"
+    environment:
+      - API_URL=http://weather-api:8000
+    depends_on:
+        - weather-api
+    restart: unless-stopped
